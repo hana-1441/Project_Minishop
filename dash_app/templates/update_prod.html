@@ -1,0 +1,94 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+    
+    <div class="app-wrapper">
+	    
+	    <div class="app-content pt-3 p-md-3 p-lg-4">
+		    <div class="container-xl">			    
+			    <h1 class="app-page-title">Update Product</h1>
+			    <hr class="mb-4">
+                <div class="row g-4 settings-section">
+	                
+	                <div class="col-12 col-md-8">
+		                <div class="app-card app-card-settings shadow-sm p-4">
+						    
+						    <div class="app-card-body">
+							    <form action="{%  url 'update_prod' pk=prod.pk %}" class="settings-form" method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+								    <div class="mb-3">
+									    <label for="setting-input-1" class="form-label">Category Name</label>
+                                        <select name="cat" class="form-control" id="setting-input-1">
+                                            <option>--select category--</option>
+                                            {% for i in cats %}
+                                            <option value="{{i.cat_name}}" >{{i.cat_name}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+									    <label for="setting-input-1" class="form-label">Sub Category Name</label>
+                                        <select name="p_sub_cat" class="form-control" id="setting-input-1">
+                                            <option>--select category--</option>
+                                            {% for i in sub_cats %}
+                                            <option value="{{i.sub_cat_name}}" >{{i.sub_cat_name}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-3">
+									    <label for="setting-input-1" class="form-label">Product Name</label>
+									    <input type="text" name="pname" value="{{ prod.pname }}" class="form-control" id="setting-input-1" placeholder="Product Name" required>
+									</div>
+
+                                    <div class="mb-3">
+									    <label for="setting-input-1" class="form-label">Product Image</label>
+									    <input type="file" name="image" class="form-control" id="setting-input-1" placeholder="Product Image">
+									</div>
+
+                                    <div class="mb-3">
+									    <label for="setting-input-1" class="form-label">Product Price</label>
+									    <input type="number" name="price" value="{{ prod.price }}" class="form-control" id="setting-input-1" placeholder="Product Price" required>
+									</div>
+
+                                    <div class="mb-3">
+									    <label for="setting-input-1" class="form-label">Product Qty</label>
+									    <input type="number" name="qty" value="{{ prod.qty }}" class="form-control" id="setting-input-1" placeholder="Product Qty" required>
+									</div>
+
+                                    <div class="mb-3">
+									    <label for="setting-input-1" class="form-label">Size Selection</label>
+									    <select name="size" class="form-control" id="setting-input-1">
+                                            <option value="small">small</option>
+                                            <option value="medium">medium</option>
+                                            <option value="large">large</option>
+                                            <option value="extra large">extra large</option>
+                                        </select>
+									</div>
+
+                                    <div class="mb-3">
+									    <label for="setting-input-1" class="form-label">Product Description</label>
+                                        <div id="id_content">	
+                                        {{form.as_p}}
+										{{form.media}}						    
+                                        </div>									    
+									</div><br>
+
+									<button type="submit" class="btn app-btn-primary" >Update</button>
+							    </form>
+						    </div><!--//app-card-body-->
+						    
+						</div><!--//app-card-->
+	                </div>
+                </div><!--//row-->
+                
+		    </div><!--//container-fluid-->
+	    </div><!--//app-content-->
+
+{% endblock %}
+
+<script>
+        
+	CKEDITOR.replace('id_content');  // Replace 'id_content' with the actual field ID
+
+</script>

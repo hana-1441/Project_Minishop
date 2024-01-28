@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+    <div class="hero-wrap hero-bread" style="background-image: url('{% static 'images/bg_6.jpg' %}');">
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+          <div class="col-md-9 ftco-animate text-center">
+          	<p class="breadcrumbs"><span class="mr-2"><a href="/">Home /</a></span> <span>Blog</span></p>
+            <h1 class="mb-0 bread">Single Blog</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+		<section class="ftco-section ftco-degree-bg">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 ftco-animate">
+						<h2 class="mb-3">{{ blog.title }}</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis, eius mollitia suscipit, quisquam doloremque distinctio perferendis et doloribus unde architecto optio laboriosam porro adipisci sapiente officiis nemo accusamus ad praesentium? Esse minima nisi et. Dolore perferendis, enim praesentium omnis, iste doloremque quia officia optio deserunt molestiae voluptates soluta architecto tempora.</p>
+            
+            <p>
+              <img src="{{ blog.image.url }}" alt="" class="img-fluid">
+            </p>
+            <p>{{blog.desc | safe}}</p>
+
+
+            <div class="pt-5 mt-5">
+              <h3 class="mb-5">{{ count }} Comments</h3>
+              <ul class="comment-list">
+                {% for i in comments %}
+                <li class="comment">
+                  <div class="vcard bio">
+                    <img src="{% static 'images/person_1.jpg' %}" alt="Image placeholder">
+                  </div>
+                  <div class="comment-body">
+                    <h3>{{ i.name }}</h3>
+                    <div class="meta">{{ i.created_at }}</div>
+                    <p>{{i.msg}}</p>
+                    <p><a href="#" class="reply">Reply</a></p>
+                  </div>
+                </li>
+                {% endfor %}
+              </ul>
+              <!-- END comment-list -->
+              
+              <div class="comment-form-wrap pt-5">
+                <h3 class="mb-5">Leave a comment</h3>
+                <form action="{% url 'post_comment' pk=blog.pk %}" method="post" class="p-5 bg-light">
+                  {% csrf_token %}
+                  <div class="form-group">
+                    <label for="name">Name *</label>
+                    <input type="text" name="name" class="form-control" id="name" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" name="email" class="form-control" id="email" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea name="msg" id="message" cols="30" rows="10" class="form-control"></textarea>
+                  </div>
+                  <div class="form-group">
+                    <input type="submit" value="Post Comment" class="btn py-3 px-4 btn-primary">
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div> <!-- .col-md-8 -->
+          <div class="col-lg-4 sidebar ftco-animate">
+            
+            <div class="sidebar-box ftco-animate">
+              <h3 CLASS="heading">Recent Blog</h3>
+              {% for i in recent_blogs %}
+              <div class="block-21 mb-4 d-flex">
+                <a class="blog-img mr-4" style="background-image: url('{{ i.image.url }}');"></a>
+                <div class="text">
+                  <h3 class="heading-1"><a href="{% url 'blog_single' pk=i.pk %}">{{i.title}}</a></h3>
+                  <div class="meta">
+                    <div><a href="#"><span class="icon-calendar"></span> {{i.created_at}}</a></div>
+                    <div><a href="#"><span class="icon-person"></span> Admin</a></div>
+                    <div><a href="#"><span class="icon-chat"></span> 19</a></div>
+                  </div>
+                </div>
+              </div>
+			        {% endfor %}
+            </div>
+
+            <div class="sidebar-box ftco-animate">
+              <h3 CLASS="heading">Tag Cloud</h3>
+              <div class="tagcloud">
+                <a href="#" class="tag-cloud-link">shop</a>
+                <a href="#" class="tag-cloud-link">products</a>
+                <a href="#" class="tag-cloud-link">shirt</a>
+                <a href="#" class="tag-cloud-link">jeans</a>
+                <a href="#" class="tag-cloud-link">shoes</a>
+                <a href="#" class="tag-cloud-link">dress</a>
+                <a href="#" class="tag-cloud-link">coats</a>
+                <a href="#" class="tag-cloud-link">jumpsuits</a>
+              </div>
+            </div>
+
+            <div class="sidebar-box ftco-animate">
+              <h3 class="heading">Paragraph</h3>
+              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ducimus itaque, autem necessitatibus voluptate quod mollitia delectus aut, sunt placeat nam vero culpa sapiente consectetur similique, inventore eos fugit cupiditate numquam!</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section> <!-- .section -->
+
+{% endblock %}

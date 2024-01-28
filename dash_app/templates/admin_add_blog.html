@@ -1,0 +1,58 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+    
+    <div class="app-wrapper">
+	    
+	    <div class="app-content pt-3 p-md-3 p-lg-4">
+		    <div class="container-xl">			    
+			    <h1 class="app-page-title">Add Blog</h1>
+			    <hr class="mb-4">
+                <div class="row g-4 settings-section">
+	                
+	                <div class="col-12 col-md-8">
+		                <div class="app-card app-card-settings shadow-sm p-4">
+						    
+						    <div class="app-card-body">
+                                {% if msg %}
+                                <p style="color:green;">{{msg}}</p>
+                                {% endif %}
+							    <form action="{%  url 'admin_add_blog' %}" class="settings-form" method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+								    
+                                    <div class="mb-3">
+									    <label for="setting-input-1" class="form-label">Blog Title</label>
+									    <input type="text" name="title" class="form-control" id="setting-input-1" placeholder="Blog Title" required>
+									</div>
+
+                                    <div class="mb-3">
+									    <label for="setting-input-1" class="form-label">Blog Image</label>
+									    <input type="file" name="image" class="form-control" id="setting-input-1" required>
+									</div>
+
+                                    <div class="mb-3">
+									    <label for="setting-input-1" class="form-label">Blog Description</label>
+                                        <div id="id_content">								    
+									    {{form.as_p}}
+										{{form.media}}	
+                                        </div>									    
+									</div><br>
+
+									<button type="submit" class="btn app-btn-primary">Add Blog</button>
+							    </form>
+						    </div><!--//app-card-body-->
+						    
+						</div><!--//app-card-->
+	                </div>
+                </div><!--//row-->
+                
+		    </div><!--//container-fluid-->
+	    </div><!--//app-content-->
+
+{% endblock %}
+
+<script>
+        
+	CKEDITOR.replace('id_content');  // Replace 'id_content' with the actual field ID
+
+</script>

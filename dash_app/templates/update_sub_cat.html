@@ -1,0 +1,35 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block content %}
+    
+    <div class="app-wrapper">
+	    
+	    <div class="app-content pt-3 p-md-3 p-lg-4">
+		    <div class="container-xl">			    
+			    <h1 class="app-page-title">Add Category</h1>
+			    <hr class="mb-4">
+                <div class="row g-4 settings-section">
+	                
+	                <div class="col-12 col-md-8">
+		                <div class="app-card app-card-settings shadow-sm p-4">
+						    
+						    <div class="app-card-body">
+							    <form class="settings-form" action="{%  url 'update_sub_cat' pk=sub_cat.pk %}" method="post">
+                                    {% csrf_token %}
+								    <div class="mb-3">
+                                        <input type="hidden" value="{{cat.}}">
+									
+									    <label for="setting-input-1" class="form-label">Sub Category Name</label>
+									    <input type="text" name="sub_cat_name" class="form-control" id="setting-input-1" value="{{sub_cat.sub_cat_name}}" required>
+									</div>
+									<button type="submit" class="btn app-btn-primary" >Update</button>
+							    </form>
+						    </div><!--//app-card-body-->
+						    
+						</div><!--//app-card-->
+	                </div>
+                </div><!--//row-->
+                
+		    </div><!--//container-fluid-->
+	    </div><!--//app-content-->
+{% endblock %}
